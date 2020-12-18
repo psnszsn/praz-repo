@@ -1,0 +1,26 @@
+name: Build with wlroots-git
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    container: archlinux:base-devel
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - run: |
+          pacman -Sy
+          useradd -m user
+          echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          cd tlstunnel
+          chown -R user .
+          su user -c "makepkg -s --noconfirm"
+          curl --ssl-reqd -k -u ${{ secrets.FTP_AUTH }} -T tlstunnel*.tar.zst ftp://ftp.epizy.com/htdocs/arch/ 
+          # makepkg -s
+      # - name: 'Upload Artifact'
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: bananawm
+      #     path: build/src/bananawm
+      #     retention-days: 2
