@@ -13,14 +13,19 @@ jobs:
           pacman -Sy
           useradd -m user
           echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-          cd tlstunnel
-          chown -R user .
-          su user -c "makepkg -s --noconfirm"
-          curl --ssl-reqd -k -u ${{ secrets.FTP_AUTH }} -T tlstunnel*.tar.zst ftp://ftp.epizy.com/htdocs/arch/ 
-          # makepkg -s
-      # - name: 'Upload Artifact'
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: bananawm
-      #     path: build/src/bananawm
-      #     retention-days: 2
+          # cd tlstunnel
+          # chown -R user .
+          # # su user -c "makepkg -s --noconfirm"
+          # curl --ssl-reqd -k -u ${{ secrets.FTP_AUTH }} -T tlstunnel*.tar.zst ftp://ftp.epizy.com/htdocs/arch/ 
+      - run: |
+          mkdir -p /tmp/crepo
+          for d in */ ; do
+            pushd $d
+            chown -R user .
+            su user -c "PKGDEST=/tmp/crepo makepkg"
+            popd
+          done
+      - run: |
+          cd /tmp/crepo
+          repo-add crepo.db.tar.gz *.pkg.tar.xz
+

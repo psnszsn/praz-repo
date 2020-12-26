@@ -1,0 +1,37 @@
+pkgname=crepo-wallpapers
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Crepo wallapers"
+arch=('any')
+license=('unknown')
+depends=()
+makedepends=()
+conflicts=()
+source=(joshua-rawson-harris-Df5BQr06VNI-unsplash.jpg
+		joshua-rawson-harris-LERmV2dl4tQ-unsplash.jpg
+		kirill-vetrov-CbYwLhbXULQ-unsplash.jpg
+		l_ash09_big.jpg
+		l_int02_big.jpg
+		l_int04_big.jpg
+		l_int06_big.jpg
+		matt-hardy-562566-unsplash.jpg
+		next_circle_wallpaper_by_howiedi2_d73xp5f.jpg
+		next_logo_on_black_by_howiedi2_dc6vtww.jpg
+		os2.png
+       )
+md5sums=('82e56162592b4df7425deea96c5ff136'
+         'd81dea295c99c9e747946afe73d4e67a'
+         '14c1298e7042d8b1e87aba16d6bcf1fd'
+         'dc8aceaca72f3283ac0fea941b173a7e'
+         'bc6bcc901767cdf73d33d7be745aa030'
+         'b07958b41cef60b053d95c16865e125b'
+         '54a2b3ee4c463aed400250e741021498'
+         '938cd65ef3cee0eb5e16c11cce616a1f'
+         '0bf01e4a7c836f6357a7766fcedf4fdc'
+         '91e6dfcf563466798007918dcc9dcce3'
+         '14f1c1c87e8ccf37e966903999e6f94f')
+
+package() {
+	install -Dm644 -t "$pkgdir/usr/share/backgrounds/crepo/" *.jpg *.png
+}
+
