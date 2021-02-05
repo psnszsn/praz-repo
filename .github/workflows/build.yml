@@ -1,4 +1,4 @@
-name: Build with wlroots-git
+name: Build new packages
 on: push
 
 jobs:
