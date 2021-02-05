@@ -1,1 +1,1 @@
-export ENV=${XDG_CONFIG_HOME:-$HOME/.config}/.shrc
+export ENV=${XDG_CONFIG_HOME:-$HOME/.config}/shrc
