@@ -14,7 +14,7 @@ for pkg in ${AURPKGS} ; do
 	# $(echo $d | grep _) && continue;
 	echo _____
 	echo "$pkg"
-	paru -G "$pkg" --aur --quiet
+	paru -G "$pkg" --aur --nopgpfetch
 	cd "$pkg"
 	# ls -al
 
@@ -24,7 +24,7 @@ for pkg in ${AURPKGS} ; do
 	echo n: $NEW_VERSION o: ${OLD_VERSION:-0}
 	if test $(vercmp $NEW_VERSION ${OLD_VERSION:-0}) -gt 0; then
 		echo Updating $pkg...
-		PKGDEST=/tmp/crepo makepkg -s --noconfirm
+		PKGDEST=/tmp/crepo makepkg -s --noconfirm --skippgpcheck
 	fi
 
 	cd ..
