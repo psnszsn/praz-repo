@@ -35,5 +35,5 @@ jobs:
       - run: |
           cd /tmp/crepo
           ls
-          rclone sync . ff:/public_html/arch --progress --copy-links
+          rclone copy . ff:/public_html/arch --progress --copy-links
 
