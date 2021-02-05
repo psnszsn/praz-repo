@@ -1,0 +1,12 @@
+pkgname=crepo-profile
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Add a few files to /etc/profile.d"
+arch=(any)
+license=('unknown')
+source=("interactive_rc.sh")
+md5sums=('c52ee70a376abd312f3d0df9c160caf5')
+
+package() {
+	install -Dm644 interactive_rc.sh "$pkgdir/etc/profile.d/interactive_rc.sh"
+}
