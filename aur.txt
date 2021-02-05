@@ -3,3 +3,4 @@ zoxide
 j4-dmenu-desktop
 lf
 tlstunnel-git
+git-delta
