@@ -9,22 +9,29 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Add pacman repo
+        run: |
+            cat<<EOF >> /etc/pacman.conf
+            [crepo]
+            SigLevel = Optional TrustAll DatabaseOptional
+            Server = https://babarulea.000webhostapp.com/arch/
+
       - run: |
-          pacman -Sy rclone --noconfirm
+          pacman -Sy rclone paru --noconfirm
           useradd -m user
           echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           # cd tlstunnel
           # chown -R user .
           # # su user -c "makepkg -s --noconfirm"
           # curl --ssl-reqd -k -u ${{ secrets.FTP_AUTH }} -T tlstunnel*.tar.zst ftp://ftp.epizy.com/htdocs/arch/ 
-      - name: Rclone
+      - run: su user -c ./build.sh
+      - name: Setup rclone
         run: |
           mkdir -p ~/.config/rclone
           cat <<EOF > ~/.config/rclone/rclone.conf
           ${{ secrets.RCLONE_CONFIG }}
           EOF
           rclone ls ff:/public_html
-      - run: ./build.sh
       - run: |
           cd /tmp/crepo
           ls
