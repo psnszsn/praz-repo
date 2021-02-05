@@ -24,18 +24,9 @@ jobs:
           ${{ secrets.RCLONE_CONFIG }}
           EOF
           rclone ls ff:/public_html
-      - run: |
-          mkdir -p /tmp/crepo
-          chown -R user /tmp/crepo
-          for d in */ ; do
-            pushd $d
-            chown -R user .
-            su user -c "PKGDEST=/tmp/crepo makepkg -s --noconfirm"
-            popd
-          done
+      - run: ./build.sh
       - run: |
           cd /tmp/crepo
           ls
-          repo-add crepo.db.tar.gz *.pkg.tar.zst
           rclone sync . ff:/public_html/arch --progress --copy-links
 
