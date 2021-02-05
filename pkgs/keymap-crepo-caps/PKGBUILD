@@ -1,0 +1,13 @@
+# Maintainer: Vz <vz@praz.xyz>
+pkgname=keymap-crepo-caps
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Console keymap with caps mapped to escape"
+arch=(any)
+license=('unknown')
+source=("crepo-caps.map")
+md5sums=('SKIP')
+
+package() {
+	install -D -m644 crepo-caps.map -t "${pkgdir}/usr/share/kbd/keymaps/i386/qwerty/"
+}
