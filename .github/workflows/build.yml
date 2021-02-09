@@ -4,7 +4,7 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-20.04
-    container: archlinux:base-devel
+    container: archlinux:base-devel-20210131.0.14634
 
     steps:
       - name: Checkout code
@@ -15,15 +15,13 @@ jobs:
             [crepo]
             SigLevel = Optional TrustAll DatabaseOptional
             Server = https://babarulea.000webhostapp.com/arch/
-
+            EOF
       - run: |
+          pacman -Sy
+          pacman -U --noconfirm https://archive.archlinux.org/repos/2021/02/01/extra/os/x86_64/git-2.30.0-1-x86_64.pkg.tar.zst
           pacman -Sy rclone paru --noconfirm
           useradd -m user
           echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-          # cd tlstunnel
-          # chown -R user .
-          # # su user -c "makepkg -s --noconfirm"
-          # curl --ssl-reqd -k -u ${{ secrets.FTP_AUTH }} -T tlstunnel*.tar.zst ftp://ftp.epizy.com/htdocs/arch/ 
       - run: su user -c ./build.sh
       - name: Setup rclone
         run: |
