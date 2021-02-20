@@ -6,3 +6,4 @@ tlstunnel-git
 git-delta
 wdisplays
 iwgtk
+gsettings-xsettings-schemas
