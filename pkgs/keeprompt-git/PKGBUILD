@@ -1,0 +1,42 @@
+# Maintainer: Vlad P <vlad@panazan.ro>
+pkgname=keeprompt-git
+pkgver=r3.d45185c
+pkgrel=1
+pkgdesc="Select a password from a KeePass database and copy it to clipboard"
+arch=(x86_64)
+url="https://github.com/psnszsn/keeprompt"
+license=('GPL')
+groups=()
+depends=()
+makedepends=('git' 'rust') # 'bzr', 'git', 'mercurial' or 'subversion'
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+replaces=()
+backup=()
+options=()
+install=
+source=('git+https://github.com/psnszsn/keeprompt')
+noextract=()
+md5sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/${pkgname%-git}"
+	# printf "%s" "$(git describe --long | sed 's/\([^-]*-\)g/r\1/;s/-/./g')"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+	cd "$srcdir/${pkgname%-git}"
+	cargo fetch --locked --target x86_64-unknown-linux-gnu
+}
+
+build() {
+	cd "$srcdir/${pkgname%-git}"
+	cargo build --release --frozen --all-targets
+}
+
+package() {
+	cd "$srcdir/${pkgname%-git}"
+	install -Dt "$pkgdir/usr/bin" target/release/keeprompt
+	install -Dt "$pkgdir/usr/share/doc/$pkgname" -m644 README.md
+}
