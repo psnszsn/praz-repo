@@ -40,8 +40,8 @@ for pkg in $(ls $REPODIR/pkgs) ; do
 	OLD_VERSION="$(pacman -Sl crepo | grep "$pkg" | awk '{print $3}' )"
 	NEW_VERSION="$(. ./PKGBUILD; echo ${pkgver}-${pkgrel})"
 
-	echo n: $NEW_VERSION o: ${OLD_VERSION:-0}
-	if test $(vercmp $NEW_VERSION ${OLD_VERSION:-0}) -gt 0; then
+	echo n: $NEW_VERSION o: ${OLD_VERSION:-a}
+	if test $(vercmp $NEW_VERSION ${OLD_VERSION:-a}) -gt 0; then
 		echo Updating $pkg...
 		PKGDEST=/tmp/crepo makepkg -s --noconfirm --skippgpcheck
 	fi
