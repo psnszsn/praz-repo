@@ -20,7 +20,7 @@ for pkg in ${AURPKGS} ; do
 	cd "$pkg"
 
 	OLD_VERSION="$(pacman -Sl crepo | grep "$pkg" | awk '{print $3}' )"
-	NEW_VERSION="$(. ./PKGBUILD; echo ${pkgver}-${pkgrel})"
+	NEW_VERSION="$(. ./PKGBUILD; echo ${epoch:-0}:${pkgver}-${pkgrel})"
 
 	echo n: $NEW_VERSION o: ${OLD_VERSION:-0}
 	if test $(vercmp $NEW_VERSION ${OLD_VERSION:-r0}) -gt 0; then
@@ -38,7 +38,7 @@ for pkg in $(ls $REPODIR/pkgs) ; do
 	echo "$pkg"
 	cd "$pkg"
 	OLD_VERSION="$(pacman -Sl crepo | grep "$pkg" | awk '{print $3}' )"
-	NEW_VERSION="$(. ./PKGBUILD; echo ${pkgver}-${pkgrel})"
+	NEW_VERSION="$(. ./PKGBUILD; echo ${epoch:-0}:${pkgver}-${pkgrel})"
 
 	echo n: $NEW_VERSION o: ${OLD_VERSION:-a}
 	if test $(vercmp $NEW_VERSION ${OLD_VERSION:-a}) -gt 0; then
