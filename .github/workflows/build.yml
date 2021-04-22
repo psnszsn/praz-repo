@@ -19,6 +19,7 @@ jobs:
             Server = https://babarulea.000webhostapp.com/arch/
             EOF
       - run: |
+          /lib/ld-linux-x86-64.so.2 --help
           pacman -Sy rclone paru --noconfirm
           useradd -m user
           echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
