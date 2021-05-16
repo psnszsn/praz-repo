@@ -8,3 +8,4 @@ git-delta
 wdisplays
 iwgtk
 gsettings-xsettings-schemas
+foot
