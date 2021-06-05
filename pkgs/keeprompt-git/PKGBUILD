@@ -1,6 +1,6 @@
 # Maintainer: Vlad P <vlad@panazan.ro>
 pkgname=keeprompt-git
-pkgver=r3.d45185c
+pkgver=r10.77a486f
 pkgrel=1
 pkgdesc="Select a password from a KeePass database and copy it to clipboard"
 arch=(x86_64)

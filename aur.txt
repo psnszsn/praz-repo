@@ -2,10 +2,8 @@ paru
 zoxide
 j4-dmenu-desktop
 lf
-tlstunnel-git
-kimchi-server-git
 git-delta
 wdisplays
 iwgtk
 gsettings-xsettings-schemas
-foot
+eduke32
